@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   AURA — Design Tokens (Agero-inspired: warm cream base, near-black ink)
+   Aesthetic: sleek minimal editorial. Big display type, generous whitespace,
+   rounded media cards, subtle film grain, one restrained clay accent.
+   ========================================================================== */
+@theme {
+  /* --- Paper: warm off-white / cream surfaces --- */
+  --color-paper-50: #faf8f3;
+  --color-paper-100: #f3efe7; /* page background */
+  --color-paper-200: #eae4d8;
+  --color-paper-300: #ded6c6;
+
+  /* --- Ink: warm near-blacks for type + UI --- */
+  --color-ink-950: #15120d;
+  --color-ink-800: #241f18;
+  --color-ink-600: #4c4339;
+  --color-ink-500: #6e655a; /* muted body */
+  --color-ink-400: #9b9285; /* faint / captions */
+
+  /* --- Clay: the single restrained warm accent --- */
+  --color-clay-600: #b0512f;
+  --color-clay-500: #c75b39;
+  --color-clay-300: #e3a98f;
+
+  /* --- Typography --- */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* --- Fluid display sizes --- */
+  --text-hero: clamp(2.75rem, 8.5vw, 8rem);
+  --text-display: clamp(2rem, 5vw, 4.25rem);
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --- Base layer ----------------------------------------------------------- */
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-paper-100);
+  color: var(--color-ink-950);
+  font-family: var(--font-sans);
+}
+
+/* Display headings: tight, modern grotesque with negative tracking. */
+.font-display {
+  letter-spacing: -0.03em;
+}
+
+/* --- Reusable visual utilities ------------------------------------------- */
+
+/* Subtle film grain overlay (Agero uses noise textures heavily). Apply to a
+   full-bleed absolutely-positioned layer with pointer-events:none. */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Status pill / chip surface */
+@utility chip {
+  background: var(--color-paper-50);
+  border: 1px solid color-mix(in oklab, var(--color-ink-950) 10%, transparent);
+}
+
+/* Soft card elevation tuned for a light surface (no harsh shadows). */
+@utility card-soft {
+  background: var(--color-paper-50);
+  box-shadow:
+    0 1px 2px color-mix(in oklab, var(--color-ink-950) 6%, transparent),
+    0 16px 40px -24px color-mix(in oklab, var(--color-ink-950) 30%, transparent);
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-ink-950) 10%, transparent);
+}
+
+/* Respect reduced-motion preferences globally. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
