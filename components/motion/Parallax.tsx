@@ -13,14 +13,6 @@ type ParallaxProps = {
   className?: string;
 };
 
-/**
- * Parallax
- * --------
- * Scroll-linked vertical drift. `useScroll` reports 0→1 progress as the element
- * passes through the viewport; `useTransform` maps that to a Y offset. We pass
- * the mapped value through `useSpring` so the parallax has a touch of inertia
- * and never feels mechanically pinned to the scrollbar.
- */
 export function Parallax({
   children,
   distance = 80,
